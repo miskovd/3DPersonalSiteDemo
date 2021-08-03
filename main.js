@@ -32,6 +32,45 @@ scene.add(lightHelper, gridHelper);
 //Mouse control
 const controls = new OrbitControls(camera, renderer.domElement);
 
+//Stars
+function addStar(){
+    const geometry = new THREE.SphereGeometry(0.25, 24, 24);
+    const material = new THREE.MeshStandardMaterial({color: 0xFF6347});
+    const star = new THREE.Mesh(geometry, material);
+
+    const [x, y, z] = Array(3).fill().map( () => THREE.MathUtils.randFloatSpread(100) );//Rand from 0 to 100
+    star.position.set(x, y, z);
+    scene.add(star);
+}
+Array(200).fill().forEach(addStar);
+
+//Space BG
+const spaceTexture = new THREE.TextureLoader().load('space.jpg');
+scene.background = spaceTexture;
+
+//Avatar
+const avatarTexture = new THREE.TextureLoader().load('jeff.png');
+const avatar =new THREE.Mesh(
+    new THREE.BoxGeometry(3, 3, 3),
+    new THREE.MeshBasicMaterial( {map: avatarTexture} )
+);
+//scene.add(avatar);
+
+//Moon
+const moonTexture = new THREE.TextureLoader().load('moon.jpg');
+const normalTexture = new THREE.TextureLoader().load('normal.jpg');
+const moon = new THREE.Mesh(
+    new THREE.SphereGeometry(2,32, 32),
+    new THREE.MeshStandardMaterial({
+        map: moonTexture,
+        normalMap: normalTexture
+    })
+);
+scene.add(moon);
+
+
+
+
 function animate(){
     requestAnimationFrame(animate);
 
