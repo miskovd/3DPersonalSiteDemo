@@ -1,2 +1,4 @@
 # 3DPersonalSiteDemo
-Run: npm run dev
+Run:
+npm install
+npm run dev
