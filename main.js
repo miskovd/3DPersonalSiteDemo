@@ -54,7 +54,7 @@ const avatar =new THREE.Mesh(
     new THREE.BoxGeometry(3, 3, 3),
     new THREE.MeshBasicMaterial( {map: avatarTexture} )
 );
-//scene.add(avatar);
+scene.add(avatar);
 
 //Moon
 const moonTexture = new THREE.TextureLoader().load('moon.jpg');
@@ -68,7 +68,26 @@ const moon = new THREE.Mesh(
 );
 scene.add(moon);
 
+moon.position.z = 30;
+moon.position.setX(-10);
 
+
+moveCamera();
+
+function moveCamera(){
+    const t = document.body.getBoundingClientRect().top;
+    moon.rotation.x += 0.05;
+    moon.rotation.y += 0.075;
+    moon.rotation.z += 0.05;
+
+    avatar.rotation.y += 0.01;
+    avatar.rotation.z += 0.01;
+
+    camera.position.z = t * -0.01;
+    camera.position.x = t * -0.0002;
+    camera.position.y = t * -0.0002;
+}
+document.body.onscroll = moveCamera;
 
 
 function animate(){
